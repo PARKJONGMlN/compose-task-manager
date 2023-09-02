@@ -6,7 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -32,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ComposableScreen()
+                    TaskCompletedScreen()
                 }
             }
         }
@@ -40,44 +42,32 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ComposableScreen(modifier: Modifier = Modifier) {
+fun TaskCompletedScreen() {
     Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CheckImage()
-        FirstText()
-        SecondText()
+        val image = painterResource(id = R.drawable.ic_task_completed)
+        Image(painter = image, contentDescription = null)
+        Text(
+            text = stringResource(R.string.all_tasks_completed),
+            modifier = Modifier.padding(top = 24.dp, bottom = 8.dp),
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = stringResource(R.string.nice_work),
+            fontSize = 16.sp
+        )
     }
-}
-
-@Composable
-fun CheckImage(modifier: Modifier = Modifier) {
-    val image = painterResource(id = R.drawable.ic_task_completed)
-    Image(painter = image, contentDescription = null)
-}
-
-@Composable
-fun FirstText(modifier: Modifier = Modifier) {
-    Text(
-        text = stringResource(R.string.all_tasks_completed),
-        fontWeight = FontWeight.Bold,
-        modifier = modifier.padding(top = 24.dp, bottom = 8.dp)
-    )
-}
-
-@Composable
-fun SecondText(modifier: Modifier = Modifier) {
-    Text(
-        text = stringResource(R.string.nice_work),
-        fontSize = 16.sp
-    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     TaskManagerTheme {
-        ComposableScreen()
+        TaskCompletedScreen()
     }
 }
